@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapJob</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- colors-->
+    <style>
+        :root {
+            --white: #F4F4F4;
+            --light-blue: #00B7B5;
+            --midle-blue: #018790;
+            --dark-blue: #005461;
+        }
+    </style>
+    <!-- colors-->
+
+    <!--font link-->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Erica+One&family=Jersey+10&family=Outfit:wght@100..900&family=Pixelify+Sans:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+
+    <!--font link-->
+
+
+    <!--css link-->
+
+    <link rel="stylesheet" href="/Styles/all.css">
+    <link rel="stylesheet" href="/Styles/header.css">
+    <link rel="stylesheet" href="/Styles/navigation.css">
+    <link rel="stylesheet" href="/Styles/middle.css">
+    <link rel="stylesheet" href="/Styles/profil.css">
+
+    <!--css link-->
+</head>
+
+<body>
+
+    <header>
+
+        <div id="left">
+            <p>
+                Snap<span style="color: var(--light-blue);">Job</span>
+            </p>
+        </div>
+        <div id="right">
+            <img id="search" src="/imgs/icons/search.svg" alt="" style="display: none;">
+            <div id="notification">
+
+                <img src="/imgs/icons/notification.svg" alt="" style="display: none;">
+                <p></p>
+            </div>
+            <div id="profil">
+                <img id="profil-img" src="<%= myrealUser.profilePic || '/imgs/imgs/image.png' %>" alt="">
+                <p>
+                    <%= myrealUser.last_name.charAt(0).toUpperCase() + myUser.last_name.slice(1) %>
+                        <%= myrealUser.first_name.charAt(0).toUpperCase() + myUser.first_name.slice(1) %>
+                </p>
+                <a href="/auth/logout">
+                    <img title="logout" style="margin-top: 5px;" id="profil-arrow" src="/imgs/icons/arrow.svg" alt="">
+                </a>
+                <!-- width 690 px b9lbo n burger menu -->
+            </div>
+        </div>
+
+
+
+    </header>
+    <div id="hover-zone"></div>
+
+    <nav id="side-nav">
+        <a href="/user/home/<%= myrealUser._id.toString() %>" style="text-decoration: none;">
+            <div style="margin-top: 10px;" id="Home">
+                <img class="imgss" src="/imgs/icons/home.png" alt="">
+                <p>Home</p>
+            </div>
+        </a>
+
+        <div id="Applied">
+            <a href="/user/Applied/ <%= myrealUser._id.toString() %>" style="text-decoration: none; display: flex; flex-direction: column; justify-content: center; align-items: center;" >
+                <img class="imgss" src="/imgs/icons/send.png" alt="">
+                <p>Applied</p>
+            </a>
+            
+        </div>
+        <div >
+            <img class="imgss" src="/imgs/icons/user.png" alt="">
+            <p>Profile</p>
+        </div>
+    </nav>
+
+    <main>
+        <div id="center">
+
+            <div id="profil-middle">
+                <div>
+                    <img id="background" src="<%= myUser.coverPicture || '/imgs/imgs/background.png' %>" alt="">
+                    <img id="center-profil-img" src="<%= myUser.profilePic || '/imgs/imgs/image.png' %>" alt="">
+                </div>
+
+                <div id="profil-middle-text">
+                    <div>
+                        <h1 id="center-name">
+                            <%= myUser.last_name.charAt(0).toUpperCase() + myUser.last_name.slice(1) %>
+                                <%= myUser.first_name.charAt(0).toUpperCase() + myUser.first_name.slice(1) %>
+                        </h1>
+                        <p id="center-discription">@<%=myUser.user_name%>
+                        </p>
+                    </div>
+
+                    <div>
+                        <p id="center-folow"><a>
+                                <%= myUser.followers.length %> followers
+                            </a></p>
+                        <% if(myprofil){ %>
+                            <div id="modal" style="display: none;">
+                                <div id="modal-box">
+                                    <span id="modal-close" onclick="profilpopup()">x</span>
+                                    <h2 id="modal-header">Modify My Profile</h2>
+
+                                    <form id="update-user-form" action="/user/profil/update/<%= myUser._id %>"
+                                        method="POST">
+                                        <div id="name-container" style="display: flex; gap: 10px;">
+                                            <input type="text" id="fn-input" placeholder="First Name"
+                                                value="<%= myUser.first_name %>" name="first_name">
+                                            <input type="text" id="ln-input" placeholder="Last Name"
+                                                value="<%= myUser.last_name %>" name="last_name">
+                                        </div>
+
+                                        <input type="email" id="email-input" placeholder="Email Address"
+                                            value="<%= myUser.email %>" name="email">
+
+                                        <textarea name="description" id="desc-input"
+                                            placeholder="About you..."><%= myUser.description %></textarea>
+
+                                        <input type="password" id="pass-input"
+                                            placeholder="New Password (leave empty to keep current)">
+
+                                        <input name="profilePic" type="text" id="pic-input"
+                                            placeholder="Profile Image URL" value="<%= myUser.profilePic %>">
+
+                                        <input name="coverPicture" type="text" id="cover-input"
+                                            placeholder="Cover Image URL" value="<%= myUser.coverPicture %>">
+
+                                        <button type="submit" id="modal-submit-btn">Save Changes</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <% }else{ %>
+                                <button>Follow </button>
+                                <% } %>
+                    </div>
+
+                </div>
+
+            </div>
+            <div id="about">
+                <div>
+                    <img src="" alt="">
+                    <h1 id="mini-title">About</h1>
+                </div>
+                <p id="center-text">
+                    <%= myUser.description %>
+                </p>
+            </div>
+            <div
+                style="display: flex; flex-direction: row; justify-content: space-between; align-items: start; width: 70vw; ">
+
+                <div id="center-left" style="margin-right: 15px;">
+                    <div id="Experience">
+                        <div
+                            style="display: flex; flex-direction: row; justify-content: start; align-items: center; margin-bottom: 20px;">
+                            <img src="" alt="">
+                            <h1>Experience</h1>
+                                <p style="margin-bottom:18px ;">-</p>
+                            </button>
+                            <div id="modal-Experience" style="display: none;">
+                                <div id="modal-box">
+                                    <span id="modal-close" onclick="experiencepopup()">x</span>
+                                    <h2 id="modal-header">add new Experience</h2>
+
+                                    <form id="update-user-form" action="/user/profil/addExp/<%= myUser._id %>"
+                                        method="POST">
+                                        <div id="name-container" style="display: flex; gap: 10px;">
+                                            <input type="text" id="fn-input" placeholder="start in dd/jj/yy"
+                                                name="Date_debut">
+                                            <input type="text" id="ln-input" placeholder="end or will end in dd/jj/yy"
+                                                name="Date_fin">
+                                        </div>
+
+                                        <select style="margin-bottom: 10px;" name="Type" id="type_emploi">
+                                            <option value="">Select</option>
+                                            <option value="internship">internship</option>
+                                            <option value="PFA">PFA</option>
+                                            <option value="PFE">PFE</option>
+                                            <option value="Part-time">Part-time</option>
+                                            <option value="Full-time">Full-time</option>
+                                        </select>
+                                        <input type="text" name="enterprise" id="pass-input"
+                                            placeholder="enterprise name">
+                                        <input type="text" name="Poste" id="pass-input" placeholder="Poste name">
+                                        <textarea name="description" id="desc-input"
+                                            placeholder="About the Poste"></textarea>
+
+
+
+
+
+
+                                        <button type="submit" id="modal-submit-btn">Save Changes</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div id="delet-modal-Experience" style="display: none;">
+                                <div id="modal-box">
+                                    <span id="modal-close" onclick="deletexperiencepopup()">x</span>
+                                    <h2 id="modal-header">Delet one Experience</h2>
+
+                                    <form id="update-user-form" action="/user/profil/removeExp/<%= myUser._id %>"
+                                        method="POST">
+                                        <select style="margin-bottom: 10px;" name="Poste" id="type_emploi">
+                                            <option value="">Select-Post</option>
+                                            <% if(myExperiences && myExperiences.length> 0) { %>
+                                                <% for(let i=0; i < myExperiences.length; i++) { %>
+                                                    <option value="<%= myExperiences[i].Poste %>">
+                                                        <%= myExperiences[i].Poste %>
+                                                    </option>
+                                                    <% } %>
+                                                        <% } else { %>
+                                                            <h1>you donct have eny experience</h1>
+                                                            <% } %>
+                                        </select>
+
+                                        <select style="margin-bottom: 10px;" name="enterprise" id="type_emploi">
+                                            <option value="">Select-Enterprise</option>
+                                            <% if(myExperiences && myExperiences.length> 0) { %>
+                                                <% for(let i=0; i < myExperiences.length; i++) { %>
+                                                    <option value="<%= myExperiences[i].enterprise %>">
+                                                        <%= myExperiences[i].enterprise %>
+                                                    </option>
+                                                    <% } %>
+                                                        <% } else { %>
+
+                                                            <% } %>
+                                        </select>
+                                        <button type="submit" id="modal-submit-btn">Save Changes</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="Experience-element">
+                            <% if(myExperiences && myExperiences.length> 0) { %>
+                                <% for(let i=0; i < myExperiences.length; i++) { %>
+                                    <div
+                                        style="margin-bottom: 15px; border-bottom: 1px solid var(--white); padding-bottom: 10px;">
+                                        <h1>
+                                            <%= myExperiences[i].Poste %>at <%= myExperiences[i].enterprise %>
+                                        </h1>
+
+                                        <p id="date">
+                                            <%= myExperiences[i].Date_debut %> - <%= myExperiences[i].Date_fin %>
+                                        </p>
+
+                                        <p id="center-text">
+                                            <%= myExperiences[i].description %>
+                                        </p>
+                                    </div>
+                                    <% } %>
+                                        <% } else { %>
+                                            <p style="text-align: center; color: var(--gray);">No experience added</p>
+                                            <% } %>
+                        </div>
+
+                    </div>
+                    <div id="Education">
+                        <div
+                            style="display: flex; flex-direction: row; justify-content: start; align-items: center; margin-bottom: 20px;">
+                            <img src="" alt="">
+                            <h1>Education</h1>
+                                <p style="margin-bottom:18px ;">-</p>
+                            </button>
+                            <div id="modal-Education" style="display: none;">
+                                <div id="modal-box">
+                                    <span id="modal-close" onclick="educationpopup()">x</span>
+                                    <h2 id="modal-header">add new Education</h2>
+
+                                    <form id="update-user-form" action="/user/profil/addEdu/<%= myUser._id %>"
+                                        method="POST">
+                                        <div id="name-container" style="display: flex; gap: 10px;">
+                                            <input type="text" id="fn-input" placeholder="ecole" name="ecole">
+                                            <input type="text" id="ln-input" placeholder="diplome" name="diplome">
+                                        </div>
+
+                                        <input type="text" name="date_debut" id="pass-input" placeholder="start in">
+                                        <input type="text" name="date_fin" id="pass-input"
+                                            placeholder="endi in or Present">
+                                        <input type="text" name="Grade" id="pass-input" placeholder="Grade">
+                                        <textarea name="Description" id="desc-input"
+                                            placeholder="description..."></textarea>
+                                        <button type="submit" id="modal-submit-btn">Save Changes</button>
+                                    </form>
+                                </div>
+                            </div>
+
+
+
+                            <div id="delet-modal-Education" style="display: none;">
+                                <div id="modal-box">
+                                    <span id="modal-close" onclick="deleteducationpopup()">x</span>
+                                    <h2 id="modal-header">Delet one Education</h2>
+
+                                    <form id="update-user-form" action="/user/profil/removeEdu/<%= myUser._id %>"
+                                        method="POST">
+                                        <select style="margin-bottom: 10px;" name="ecole" id="type_emploi">
+                                            <option value="">Select-school</option>
+                                            <% if(myEducations && myEducations.length> 0) { %>
+                                                <% for(let i=0; i < myEducations.length; i++) { %>
+                                                    <option value="<%= myEducations[i].ecole %>">
+                                                        <%= myEducations[i].ecole %>
+                                                    </option>
+                                                    <% } %>
+                                                        <% } else { %>
+                                                            <h1>you dont have eny experience</h1>
+                                                            <% } %>
+                                        </select>
+
+                                        <select style="margin-bottom: 10px;" name="diplome" id="type_emploi">
+                                            <option value="">Select-diplome</option>
+                                            <% if(myEducations && myEducations.length> 0) { %>
+                                                <% for(let i=0; i < myEducations.length; i++) { %>
+                                                    <option value="<%= myEducations[i].diplome %>">
+                                                        <%= myEducations[i].diplome %>
+                                                    </option>
+                                                    <% } %>
+                                                        <% } else { %>
+
+                                                            <% } %>
+                                        </select>
+                                        <button type="submit" id="modal-submit-btn">Save Changes</button>
+                                    </form>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <div id="Education-element">
+                            <% if(myEducations && myEducations.length> 0) { %>
+                                <% for(let i=0; i < myEducations.length; i++) { %>
+                                    <% if( true){ %>
+                                        <div
+                                            style="margin-bottom: 15px; border-bottom: 1px solid var(--white); padding-bottom: 10px;">
+
+                                            <h1>
+                                                <%= myEducations[i].ecole %> - <%= myEducations[i].diplome %>
+                                            </h1>
+
+                                            <p id="date">
+                                                <%= myEducations[i].date_debut %> - <%= myEducations[i].date_fin %>
+                                            </p>
+
+                                            <p id="center-text">
+                                                <%= myEducations[i].Description %>
+                                            </p>
+                                        </div>
+                                        <% } %>
+                                            <% } %>
+                                                <% } else { %>
+                                                    <p style="text-align: center; color: var(--gray);">No education
+                                                        added</p>
+                                                    <% } %>
+                        </div>
+                    </div>
+                    <div id="capabilities">
+                        <div
+                            style="display: flex; flex-direction: row; justify-content: start; align-items: center; margin-bottom: 20px;">
+                            <img src="" alt="">
+                            <h1>Capabilities</h1>
+
+
+
+                                <p style="margin-bottom:18px ;">-</p>
+                            </button>
+                            <div id="modal-capabilitie" style="display: none;">
+                                <div id="modal-box">
+                                    <span id="modal-close" onclick="capabilitiepopup()">x</span>
+                                    <h2 id="modal-header">add new capabilitie</h2>
+
+                                    <form id="update-user-form" action="/user/profil/addComp/<%= myUser._id %>"
+                                        method="POST">
+                                        <div id="name-container" style="display: flex; gap: 10px;">
+                                            <input type="text" id="fn-input" placeholder="title" name="title">
+                                        </div>
+                                        <select style="margin-bottom: 10px;" name="type" id="type_emploi">
+                                            <option value="">Select</option>
+                                            <option value="Skile">Skile</option>
+                                            <option value="technology">technology</option>
+                                            <option value="language">language</option>
+
+                                        </select>
+                                        <select style="margin-bottom: 10px;" name="niveau" id="type_emploi">
+                                            <option value="">Select</option>
+                                            <option value="Beginner">Beginner</option>
+                                            <option value="Advanced">Advanced</option>
+                                            <option value="Expert">Expert</option>
+
+                                        </select>
+
+                                        <button type="submit" id="modal-submit-btn">Save Changes</button>
+                                    </form>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                        <div id="delet-modal-Capabilitie" style="display: none;">
+                                <div id="modal-box">
+                                    <span id="modal-close" onclick="deletcapabilitiespopup()">x</span>
+                                    <h2 id="modal-header">Delet one capabilitie</h2>
+
+                                    <form id="update-user-form" action="/user/profil/removeComp/<%= myUser._id %>"
+                                        method="POST">
+                                        <select style="margin-bottom: 10px;" name="title" id="type_emploi">
+                                            <option value="">Select-school</option>
+                                            <% if(myCapabilities && myCapabilities.length> 0) { %>
+                                                <% for(let i=0; i < myCapabilities.length; i++) { %>
+                                                    <option value="<%= myCapabilities[i].title %>">
+                                                        <%= myCapabilities[i].title %>
+                                                    </option>
+                                                    <% } %>
+                                                        <% } else { %>
+                                                            <h1>you dont have eny capabilities</h1>
+                                                            <% } %>
+                                        </select>
+
+                                        <button type="submit" id="modal-submit-btn">Save Changes</button>
+                                    </form>
+                                </div>
+                        </div>
+
+
+                        <div id="tag-container">
+                            <% if(myCapabilities && myCapabilities.length> 0) { %>
+                                <% for(let i=0; i < myCapabilities.length; i++) { %>
+
+                                    <span title="<%= myCapabilities[i].type %> - <%= myCapabilities[i].niveau %>">
+                                        <%= myCapabilities[i].title %>
+                                    </span>
+
+                                    <% } %>
+                                        <% } else { %>
+                                            <p style="color: var(--gray);">No skills added.</p>
+                                            <% } %>
+                        </div>
+                    </div>
+
+                    <div id="Certifications">
+                        <div
+                            style="display: flex; flex-direction: row; justify-content: start; align-items: center; margin-bottom: 20px;">
+                            <img src="" alt="">
+                            <h1>Certifications</h1>
+
+                                <p style="margin-bottom:18px ;">-</p>
+                            </button>
+
+                            <div id="modal-certification" style="display: none;">
+                                <div id="modal-box">
+                                    <span id="modal-close" onclick="certificationpopup()">x</span>
+                                    <h2 id="modal-header">add new Certification</h2>
+
+                                    <form id="update-user-form" action="/user/profil/addCert/<%= myUser._id %>"
+                                        method="POST">
+                                        <div id="name-container"
+                                            style="display: flex; gap: 10px; flex-direction: column;">
+                                            <input type="text" id="fn-input" placeholder="Titre" name="titre">
+                                            <input type="text" id="ln-input" placeholder="Organisme" name="organisme">
+                                        </div>
+
+                                        <button type="submit" id="modal-submit-btn">Save Changes</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="delet-modal-certification" style="display: none;">
+                                <div id="modal-box">
+                                    <span id="modal-close" onclick="deletcertificationpopup()">x</span>
+                                    <h2 id="modal-header">Delet one capabilitie</h2>
+
+                                    <form id="update-user-form" action="/user/profil/removeCert/<%= myUser._id %>"
+                                        method="POST">
+                                        <select style="margin-bottom: 10px;" name="titre" id="type_emploi">
+                                            <option value="">Select-certification</option>
+                                            <% if(myCertifications && myCertifications.length> 0) { %>
+                                                <% for(let i=0; i < myCertifications.length; i++) { %>
+                                                    <option value="<%= myCertifications[i].titre %>">
+                                                        <%= myCertifications[i].titre %>
+                                                    </option>
+                                                    <% } %>
+                                                        <% } else { %>
+                                                            <h1>you dont have eny capabilities</h1>
+                                                            <% } %>
+                                        </select>
+
+                                        <button type="submit" id="modal-submit-btn">Save Changes</button>
+                                    </form>
+                                </div>
+                        </div>
+
+
+                        <div id="Certifications-element">
+                            <% if(myCertifications && myCertifications.length> 0) { %>
+                                <% for(let i=0; i < myCertifications.length; i++) { %>
+                                    <div style="margin-bottom: 10px;">
+
+                                        <h1>
+                                            <%= myCertifications[i].titre %>
+                                        </h1>
+
+                                        <span style="display: inline-block;" id="date">• <%=
+                                                myCertifications[i].organisme %></span>
+                                    </div>
+                                    <% } %>
+                                        <% } else { %>
+                                            <p style="text-align: center; color: var(--gray);">No certifications added
+                                                yet.</p>
+                                            <% } %>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="center-right">
+                    <div id="additional-informations">
+                        <h1>Contact Info</h1>
+                        <div style="margin-top: 15px;">
+                            <p style="margin-bottom: 5px; font-weight: 600; color: var(--gray);">Email</p>
+                            <p style="color: var(--midle-blue);">
+                                <%= myUser.email %>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+        </div>
+    </main>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--scripts -->
+    <script src="/Scripts/script.js"></script>
+    <!--scripts -->
+</body>
+
+</html>

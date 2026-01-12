@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapJob</title>
+
+    <!-- colors-->
+    <style>
+        :root {
+            --white: #F4F4F4;
+            --light-blue: #00B7B5;
+            --midle-blue: #018790;
+            --dark-blue: #005461;
+        }
+    </style>
+    <!-- colors-->
+
+    <!--font link-->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Erica+One&family=Jersey+10&family=Outfit:wght@100..900&family=Pixelify+Sans:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+
+    <!--font link-->
+
+
+    <!--css link-->
+
+    <link rel="stylesheet" href="/Styles/all.css">
+    <link rel="stylesheet" href="/Styles/header.css">
+    <link rel="stylesheet" href="/Styles/navigation.css">
+    <link rel="stylesheet" href="/Styles/middle.css">
+    <link rel="stylesheet" href="/Styles/login.css">
+    
+
+    <!--css link-->
+</head>
+
+<body>
+    <% if(error){%>
+        <script>
+            alert("<%= error %>");
+        </script>
+    <% } %>
+    <main>
+        <div id="login-left">
+            <img src="/imgs/icons/login.png" alt="">
+        </div>
+        
+        <div id="login-right">
+            <div id="login">
+                <div>
+                    <h1>Welcome </h1>
+                </div>
+                <div>
+                    <form action="/auth/login" method="POST">
+                        <p id="text-Email" >Username</p>
+                        <input id="Email" placeholder="oualidamtout2005" type="text" name="user_name" >
+                        <p id="text-Password" >Password</p>
+                        <input id="Password" placeholder="1234568" type="password" name="password">
+                        <div id="side"><a href="/auth/register">Sign up</a></div>
+                        <button id="submit-button" type="submit">Log In</button>
+                        <p id="middle-login">OR</p>
+                        <div id="or-methods">
+                            <img src="/imgs/icons/google (1).png" alt="">
+                            <img src="/imgs/icons/facebook.png" alt="">
+                            <img src="/imgs/icons/mac-os-logo.png" alt="">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+
+        </div>
+    </main>
+</body>
+
+
+
+
+
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapJob</title>
+
+    <!-- colors-->
+    <style>
+        :root {
+            --white: #F4F4F4;
+            --light-blue: #00B7B5;
+            --midle-blue: #018790;
+            --dark-blue: #005461;
+        }
+    </style>
+    <!-- colors-->
+
+    <!--font link-->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Erica+One&family=Jersey+10&family=Outfit:wght@100..900&family=Pixelify+Sans:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+
+    <!--font link-->
+
+
+    <!--css link-->
+
+    <link rel="stylesheet" href="/Styles/all.css">
+    <link rel="stylesheet" href="/Styles/header.css">
+    <link rel="stylesheet" href="/Styles/navigation.css">
+    <link rel="stylesheet" href="/Styles/middle.css">
+    <link rel="stylesheet" href="/Styles/profil.css">
+    <link rel="stylesheet" href="/Styles/Applied.css">
+
+    <!--css link-->
+</head>
+
+
+<body>
+
+    <header>
+
+        <div id="left">
+
+            <p>
+                Snap<span style="color: var(--light-blue);">Job</span>
+            </p>
+        </div>
+        <div id="right">
+            <img id="search" src="/imgs/icons/search.svg" alt="" style="display: none;">
+            <div id="notification">
+
+                <img src="/imgs/icons/notification.svg" alt="" style="display: none;">
+                <p></p>
+            </div>
+            <div id="profil">
+                <img id="profil-img" src="/imgs/imgs/image.png" alt="">
+                <p>
+                    <%=myUser.last_name %>
+                        <%= myUser.first_name %>
+                </p>
+                <a href="/auth/logout">
+                    <img title="logout" style="margin-top: 5px;" id="profil-arrow" src="/imgs/icons/arrow.svg" alt="">
+                </a>
+            </div>
+        </div>
+
+
+
+    </header>
+    <div id="hover-zone"></div>
+    <nav id="side-nav">
+        <a href="/user/home/<%= myUser._id.toString() %>" style="text-decoration: none;">
+            <div style="margin-top: 10px;" id="Home">
+                <img class="imgss" src="/imgs/icons/home.png" alt="">
+                <p>Home</p>
+            </div>
+        </a>
+
+        <div id="Applied">
+            <a href="/user/Applied/ <%= myUser._id.toString()%>"
+                style="text-decoration: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <img class="imgss" src="/imgs/icons/send.png" alt="">
+                <p>Applied</p>
+            </a>
+
+        </div>
+        <div id="Profile">
+            <a style="text-decoration: none; display: flex; flex-direction: column; justify-content: center; align-items: center;"
+                href="/user/profil/">
+                <img class="imgss" src="/imgs/icons/user.png" alt="">
+                <p>Profile</p>
+            </a>
+
+        </div>
+    </nav>
+
+    <main id="mymain">
+        <div id="mainpage" style="flex-direction: column;">
+
+            <div id="Myoffers">
+                <div id="Myoffers-top">
+                    <h1>My Offers</h1>
+                    <p>Manage active listings and review candidates</p>
+                </div>
+                <% if (myOffres && myOffres.length> 0) { %>
+                    <% for(let i=0; i < myOffres.length; i++) { %>
+                        <div id="Offers-waper">
+                            <div id="Myoffers-offre">
+                                <div>
+                                    <h1 id="">
+                                        <%= myOffres[i].titre %>
+                                    </h1>
+                                </div>
+                                <div>
+                                    <div id="Myoffers-offre-localisation">
+                                        <img src="" alt="">
+                                        <p>
+                                            <%= myOffres[i].lieu_travail %>
+                                        </p>
+                                    </div>
+                                    <div id="Myoffers-offre-date">
+                                        <img src="" alt="">
+                                        <p>Posted <%= new Date(myOffres[i].createdAt).toLocaleDateString() %>
+                                        </p>
+                                    </div>
+
+                                </div>
+                                <p id="Myoffers-offre-number"> <span><%= myOffres[i].candidateCount %></span> Applicats</p>
+                                <div id="Myoffers-offre-statu-button" class="review-btn"
+                                    data-offer-id="<%= myOffres[i]._id.toString() %>" style="cursor: pointer;">
+                                    <img src="" alt="">
+                                    <p>Review Candidates</p>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                            <% } else { %>
+                                <div id="Offers-waper">
+                                    <div id="Myoffers-offre">
+                                        <p style="text-align: center; color: var(--gray); padding: 20px;">No offers
+                                            found.</p>
+                                    </div>
+                                </div>
+                                <% } %>
+            </div>
+
+            <div id="MyApplications">
+                <div id="MyApplications-top">
+                    <h1>My Applications</h1>
+                    <p>Track the status of your current applications</p>
+                </div>
+
+                <div id="Myoffers-Applications-Container">
+                    <% if (myApplications && myApplications.length> 0) { %>
+                        <% for(let i=0; i < myApplications.length; i++) { %>
+
+                            <div id="Myoffers-Applications"
+                                style="margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+
+                                <div id="Myoffers-Applications-description">
+                                    <h1 id="Myoffers-Applications-title">
+                                        <%= myApplications[i].offerTitle || 'Job Title' %>
+                                    </h1>
+
+                                    <p id="Myoffers-Applications-orgasm">
+                                        <%= myApplications[i].companyName || 'Company' %>
+                                    </p>
+
+                                    <div id="Myoffers-Applications-date">
+                                        <img src="/imgs/icons/calendar.svg" alt="" style="width: 15px; opacity: 0.6;">
+                                        <p>Applied on <%= new Date(myApplications[i].createdAt).toLocaleDateString() %>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div id="Myoffers-Applications-statue">
+                                    <p style=" font-weight: bold;">
+                                        <%= myApplications[i].status %>
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <% } %>
+                                <% } else { %>
+                                    <p style="text-align: center; color: gray; padding: 20px;">You haven't applied to
+                                        any jobs yet.</p>
+                                    <% } %>
+                </div>
+
+
+            </div>
+
+
+        </div>
+        
+
+        <div id="right-panel" style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+            <% if (currentCandidate) { %>
+                <div id="currentCandidate" class="profile-card" style="position: absolute; right: 150px; top: 50px;">
+                    <div class="card-header">
+                        <div class="avatar-wrapper">
+                            <img src="<%= currentCandidate.user.profilePic || '/imgs/imgs/image.png' %>"
+                                alt="User Profile">
+                        </div>
+                        <h1>
+                            <%= currentCandidate.user.first_name || '' %>
+                                <%= currentCandidate.user.last_name || '' %>
+                        </h1>
+                        <p class="job-title">@<%= currentCandidate.user.user_name || currentCandidate.card.username
+                                || '' %>
+                        </p>
+                    </div>
+
+                    <div class="skills-container">
+                        <% if (currentCandidate.competencies && currentCandidate.competencies.length> 0) { %>
+                            <% for(const comp of currentCandidate.competencies) { %>
+                                <span class="badge">
+                                    <%= comp.title || comp.titre || '' %>
+                                </span>
+                                <% } %>
+                                    <% } else { %>
+                                        <span class="badge">No skills listed</span>
+                                        <% } %>
+                    </div>
+
+                    <div class="info-section">
+                        <div class="section-title">DESCRIPTION</div>
+                        <div class="section-content">
+                            <p>
+                                <%= currentCandidate.card.Description || 'No description provided' %>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="info-section">
+                        <div class="section-title">FORMATION</div>
+                        <% if (currentCandidate.educations && currentCandidate.educations.length> 0) { %>
+                            <% for(const edu of currentCandidate.educations) { %>
+                                <div class="section-content">
+                                    <h3>
+                                        <%= edu.diplome || '' %> - <%= edu.ecole || '' %>
+                                    </h3>
+                                    <p class="subtitle">
+                                        <%= edu.Grade || '' %>
+                                    </p>
+                                    <p class="date">
+                                        <%= edu.date_debut || '' %> - <%= edu.date_fin || 'Present' %>
+                                    </p>
+                                </div>
+                                <% } %>
+                                    <% } else { %>
+                                        <div class="section-content">
+                                            <p>No education listed</p>
+                                        </div>
+                                        <% } %>
+                    </div>
+
+                    <div class="info-section">
+                        <div class="section-title">EXPERIENCE</div>
+                        <% if (currentCandidate.experiences && currentCandidate.experiences.length> 0) { %>
+                            <% for(const exp of currentCandidate.experiences) { %>
+                                <div class="section-content">
+                                    <h3>
+                                        <%= exp.Poste || '' %> at <%= exp.enterprise || '' %>
+                                    </h3>
+                                    <p class="subtitle">
+                                        <%= exp.Type || '' %>
+                                    </p>
+                                    <p class="date">
+                                        <%= exp.Date_debut || '' %> - <%= exp.Date_fin || 'Present' %>
+                                    </p>
+                                    <p>
+                                        <%= exp.description || '' %>
+                                    </p>
+                                </div>
+                                <% } %>
+                                    <% } else { %>
+                                        <div class="section-content">
+                                            <p>No experience listed</p>
+                                        </div>
+                                        <% } %>
+                    </div>
+
+                    <div class="info-section">
+                        <div class="section-title">CERTIFICATIONS</div>
+                        <% if (currentCandidate.certifications && currentCandidate.certifications.length> 0) { %>
+                            <% for(const cert of currentCandidate.certifications) { %>
+                                <div class="section-content">
+                                    <h3>
+                                        <%= cert.titre || '' %>
+                                    </h3>
+                                    <p class="subtitle">
+                                        <%= cert.organisme || '' %>
+                                    </p>
+                                </div>
+                                <% } %>
+                                    <% } else { %>
+                                        <div class="section-content">
+                                            <p>No certifications listed</p>
+                                        </div>
+                                        <% } %>
+                    </div>
+
+                    
+
+                    <div class="card-actions">
+                        <form action="/user/offers/candidates/status" method="POST" style="display: inline;">
+                            <input type="hidden" name="cardId" value="<%= currentCandidate.card._id %>">
+                            <input type="hidden" name="offerId" value="<%= offerId %>">
+                            <input type="hidden" name="status" value="rejected">
+                            <input type="hidden" name="index" value="<%= candidateIndex %>">
+                            <button type="submit" class="btn btn-close">✕</button>
+                        </form>
+                        <form action="/user/offers/candidates/status" method="POST" style="display: inline;">
+                            <input type="hidden" name="cardId" value="<%= currentCandidate.card._id %>">
+                            <input type="hidden" name="offerId" value="<%= offerId %>">
+                            <input type="hidden" name="status" value="accepted">
+                            <input type="hidden" name="index" value="<%= candidateIndex %>">
+                            <button type="submit" class="btn btn-check">✔</button>
+                        </form>
+                    </div>
+                </div>
+
+                <% } else if (offerId) { %>
+                    <div id="currentCandidate" class="profile-card" style="position: absolute; right: 220px; top: 150px;">
+
+                        <div style="text-align: center; padding: 20px; border-bottom: 1px solid #eee;">
+                            <h2 style="color: var(--dark-blue, #333);">Review Complete</h2>
+                            <p style="color: gray;">You have reviewed all candidates for this offer.</p>
+                        </div>
+
+                        <div style="padding: 20px;">
+                            <h3 style="color: var(--light-blue, #007bff); margin-bottom: 15px;">
+                                Accepted Candidates (<%= acceptedCandidates ? acceptedCandidates.length : 0 %>)
+                            </h3>
+
+                            <% if (acceptedCandidates && acceptedCandidates.length> 0) { %>
+                                <div class="candidates-grid">
+                                    <% for(let acc of acceptedCandidates) { %>
+                                        <a href="/user/profil/<%= acc.user._id %>"
+                                            style="text-decoration: none; color: inherit;">
+                                            <div class="grid-item-card">
+                                                <img src="<%= acc.user.profilePic || '/imgs/imgs/image.png' %>"
+                                                    alt="Profile" class="grid-avatar">
+                                                <p class="grid-name">
+                                                    <%= acc.user.first_name %>
+                                                        <%= acc.user.last_name %>
+                                                </p>
+                                                <p class="grid-username">
+                                                    @<%= acc.user.user_name %>
+                                                </p>
+                                            </div>
+                                        </a>
+                                        <% } %>
+                                </div>
+                                <% } else { %>
+                                    <div
+                                        style="text-align: center; padding: 30px; background-color: #f9f9f9; border-radius: 10px;">
+                                        <p>No candidates were accepted for this offer.</p>
+                                    </div>
+                                    <% } %>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 30px; padding-bottom: 20px;">
+                            <a href="/user/Applied/<%= myUser._id.toString() %>"
+                                style="text-decoration: none; color: var(--dark-blue, #333); font-weight: bold; border: 1px solid var(--dark-blue, #333); padding: 10px 20px; border-radius: 5px;">
+                                &larr; Back to My Offers
+                            </a>
+                        </div>
+                    </div>
+                    <% } %>
+        </div>
+    </main>
+
+
+    <script src="/Scripts/script.js"></script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const reviewButtons = document.querySelectorAll('.review-btn');
+            reviewButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const offerId = this.getAttribute('data-offer-id');
+                    window.location.href = '/user/Applied/<%= myUser._id.toString() %>?offerId=' + offerId + '&index=0';
+                });
+            });
+        });
+    </script>
+
+</body>
+
+
+
+</html>

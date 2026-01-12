@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapJob - Sign Up</title>
+    <link rel="stylesheet" href="/Styles/all.css">
+    <link rel="stylesheet" href="/Styles/signup.css"> 
+</head>
+<body>
+    <% if(error){%>
+        <script>
+            alert("<%= error %>");
+        </script>
+    <% } %>
+        
+    <main>
+        <div id="login-left">
+            <img src="/imgs/icons/login.png" alt="Sign Up Decoration">
+        </div>
+        
+        <div id="login-right">
+            <div id="login">
+                <div>
+                    <h1>Create Account</h1>
+                </div>
+                <div>
+                    <form action="/auth/register" method="POST">
+                        
+                        <div  id="input-row">
+                            <div  id="input-two">
+                                <p id="text-Prenom">First Name</p>
+                                <input id="Prenom" placeholder="oualid" type="text" name="first_name">
+                            </div>
+                            <div  id="input-two">
+                                <p id="text-Nom">Last Name</p>
+                                <input id="Nom" placeholder="amtout" type="text" name="last_name">
+                            </div>
+                        </div>
+
+                        <p id="text-Username">Username</p>
+                        <input id="Username" placeholder="oualidamtout123" type="text" name="user_name">
+
+                        <p id="text-Email">Email</p>
+                        <input id="Email" placeholder="oualidamtout@inpt.ma" type="email" name="email">
+
+                        <p id="text-Password">Password</p>
+                        <input id="Password" placeholder="12345678" type="password" name="password">
+
+                        <p id="text-Description">Description</p>
+                        <input id="text" placeholder="Tell us about you in 200 word..." name="description">
+
+                        <button id="submit-button" type="submit">Sign Up</button>
+                        
+                        <p id="middle-login">Already have an account?</p>
+                        <div id="side" style="text-align: center;">
+                            <a href="/auth/login">Log In here</a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,153 @@
+
+
+
+
+main {
+    background-color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+#login-left {
+    flex: 3; 
+    overflow: hidden;
+}
+
+#login-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#login-right {
+    flex: 2; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    background-color: white;
+}
+
+#login {
+    width: 100%;
+    max-width: 400px; 
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+h1 {
+    color: var(--dark-blue);
+    font-size: 50px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#text-Email, #text-Password {
+    margin: 0;
+    font-weight: 600;         
+    color: var(--dark-blue); 
+}
+
+input{
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid var(--light-gray);
+    background-color: var(--white);
+    color: var(--gray);
+    outline: none;
+    transition:  0.3s ;
+}
+
+input:focus {
+    border-color: var(--light-blue);
+    background-color: var(--pure-white);
+    box-shadow: 0 0 0 4px var(--light-invisble-blue);
+}
+
+#side {
+    text-align: right;
+    font-size: 0.9rem;
+}
+
+#side a {
+    text-decoration: none;
+    color: var(--midle-blue);
+    font-weight: 500;
+}
+
+#side a:hover {
+    color: var(--dark-blue);
+    text-decoration: underline;
+}
+
+#submit-button {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--light-blue);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+
+
+#submit-button:hover {
+    
+    background-color: var(--midle-blue);
+}
+
+#middle-login {
+    text-align: center;
+    color: var(--light-gray);
+    font-size: 0.9rem;
+    margin: 12px 0;
+    position: relative;
+}
+
+
+
+#or-methods {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+#or-methods img {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    border: 1px solid var(--light-gray);
+    border-radius: 50%; 
+    cursor: pointer;
+    transition: 0.5s;
+
+}
+
+#or-methods img:hover {
+    border-color: var(--light-blue);
+    background-color: var(--pure-white);
+    box-shadow: 0 0 0 4px var(--light-invisble-blue);
+    background-color: var(--light-invisble-blue);
+    border-color: var(--light-blue);
+}
+
+@media (max-width: 768px) {
+    #login-left {
+        display: none; 
+    }
+}

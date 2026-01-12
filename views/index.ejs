@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapJob</title>
+
+    <!-- colors-->
+    <style>
+        :root {
+            --white: #F4F4F4;
+            --light-blue: #00B7B5;
+            --midle-blue: #018790;
+            --dark-blue: #005461;
+        }
+    </style>
+    <!-- colors-->
+
+    <!--font link-->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Erica+One&family=Jersey+10&family=Outfit:wght@100..900&family=Pixelify+Sans:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+
+    <!--font link-->
+
+
+    <!--css link-->
+
+    <link rel="stylesheet" href="/Styles/all.css">
+    <link rel="stylesheet" href="/Styles/header.css">
+    <link rel="stylesheet" href="/Styles/navigation.css">
+    <link rel="stylesheet" href="/Styles/middle.css">
+    <link rel="stylesheet" href="/Styles/profil.css">
+
+    <!--css link-->
+</head>
+
+<body>
+
+    <header>
+
+        <div id="left">
+
+            <p>
+                Snap<span style="color: var(--light-blue);">Job</span>
+            </p>
+        </div>
+        <div id="right">
+            <img id="search" src="/imgs/icons/search.svg" alt="" style="display: none;">
+            <div id="notification" style="display: none;">
+
+                <img src="/imgs/icons/notification.svg" alt="">
+                <p></p>
+            </div>
+            <div id="profil">
+                <img id="profil-img" src="<%= finduser.profilePic || '/imgs/imgs/image.png' %>" alt="">
+                <p>
+                    <%=finduser.last_name %>
+                        <%= finduser.first_name %>
+                </p>
+                <a href="/auth/logout">
+                    <img title="logout" style="margin-top: 5px;" id="profil-arrow" src="/imgs/icons/arrow.svg" alt="">
+                </a>
+
+            </div>
+        </div>
+
+
+
+    </header>
+    <div id="hover-zone"></div>
+
+    <nav id="side-nav">
+        <div style="margin-top: 10px;" id="Home">
+            <img class="imgss" src="/imgs/icons/home.png" alt="">
+            <p>Home</p>
+        </div>
+
+
+        <div id="Applied">
+            <a href="/user/Applied/<%= myUser._id.toString() %>"
+                style="text-decoration: none; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <img class="imgss" src="/imgs/icons/send.png" alt="">
+                <p>Applied</p>
+            </a>
+
+        </div>
+
+        <div id="Profile">
+            <a style="text-decoration: none; display: flex; flex-direction: column; justify-content: center; align-items: center;"
+                href="/user/profil/">
+                <img class="imgss" src="/imgs/icons/user.png" alt="">
+                <p>Profile</p>
+            </a>
+
+        </div>
+    </nav>
+
+
+    <main id="main">
+        <a href="/user/profil/">
+            <div id="miniprofile">
+                <div id="miniprofile-background">
+                    <img src="<%= finduser.coverPicture || '/imgs/imgs/background.png' %>" alt="">
+                </div>
+                <div id="miniprofile-user">
+                    <img src="<%= finduser.profilePic || '/imgs/imgs/image.png' %>" alt="">
+                    <div>
+                        <p>@<%=finduser.user_name %>
+                        </p>
+                        <% if(finduser.description.length<40){ %>
+                            <p><span>
+                                    <%= finduser.description %>
+                                </span></p>
+                            <% }else{ %>
+                                <p>
+                                    <span>
+                                        <%= finduser.description.slice(0, 80) %> ...
+                                    </span>
+                                </p>
+                                <% } %>
+                    </div>
+                </div>
+                <div id="miniprofile-user-info">
+                    <div>
+                        <p>
+                            <%= finduser.following.length %>
+                        </p>
+                        <p> <span>following</span></p>
+                    </div>
+                    <div>
+                        <p>
+                            <%= finduser.followers.length %>
+                        </p>
+                        <p> <span>followers</span> </p>
+                    </div>
+
+
+                </div> <!-- line-->
+
+
+
+            </div>
+        </a>
+        <div id="middlepage">
+
+            <div id="creat-post-text">
+                <img src="<%= finduser.profilePic || '/imgs/imgs/image.png' %>" alt="">
+                <form action="/user/home/<%= finduser._id %>/post" method="POST">
+
+
+                    <input style="flex:1; width:100px;" name="content" type="text" placeholder="What's in your mind ">
+                    <button>Post</button>
+                </form>
+                <button onclick="openNewJobPopup()">New Job</button>
+
+            </div>
+            <div id="NewJobPopup">
+                <button
+                    style="border-radius: 50%; border:1px solid black; position: absolute; right: 10px; cursor: pointer;"
+                    onclick="closeNewJobPopup()">x</button>
+                <h1 id="form-title">OFFRE</h1>
+                <form id="job-offer-form" action="/user/home/<%= finduser._id %>/offre" method="POST">
+                    <div>
+                        <p>title</p>
+                        <input type="text" name="title" id="form-input">
+                    </div>
+
+                    <div>
+                        <p>type of emploiment</p>
+                        <select id="type_emploi" name="type_emploi">
+                            <option value="cdi">CDI</option>
+                            <option value="cdd">CDD</option>
+                            <option value="freelance">Freelance</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p>Description</p>
+                        <input id="description" type="text" name="description">
+                    </div>
+                    <div>
+                        <p>place</p>
+                        <input id="place" type="text" name="place">
+                    </div>
+
+                    <div id="form-buttons">
+
+                        <button class="form-buttons-button" id="submit-button" type="submit">Save</button>
+                    </div>
+
+
+                </form>
+            </div>
+            <% if (mylist && mylist.length> 0) { %>
+                <% for(let i=0; i < mylist.length; i++) { %>
+                    <% if (mylist[i][0]==='post' ) { %>
+                        <div id="article">
+                            <div id="article-profile">
+                                <img src="<%= mylist[i][1].profilePic || '/imgs/imgs/image.png' %>" alt="">
+                                <a href="/user/profil/<%= mylist[i][1].userid %>"
+                                    style="text-decoration: none; color: var(--dark-blue);">
+                                    <%= mylist[i][1].username %>
+                                </a>
+
+                            </div>
+                            <div id="article-content">
+                                <p>
+                                    <%= mylist[i][1].content %>
+                                </p>
+
+                            </div>
+                            <div id="article-likes" style="display: none;">
+                                <div><img src="" alt="">
+                                    <p><span>
+                                            <%= mylist[i][1].likes.length %>
+                                        </span></p>Likes
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <% } else { %>
+                            <div id="offre">
+                                <div id="offre-profile">
+                                    <img src="<%= mylist[i][1].profilePic || '/imgs/imgs/image.png' %>" alt="">
+                                    <a href="/user/profil/<%= mylist[i][1].userid %>"
+                                        style="text-decoration: none; color: var(--dark-blue);">
+                                        <%= mylist[i][1].username %>
+                                    </a>
+                                    <p style="color: var(--dark-blue); font-weight: bold;">
+                                        (<%= mylist[i][1].type_emploi %>)
+                                    </p>
+
+                                </div>
+                                <div id="offre-content">
+                                    <p>
+                                        <%= mylist[i][1].titre +' :' %> <br> <%= mylist[i][1].Description %> in <%= mylist[i][1].lieu_travail %>
+                                    </p>
+
+                                </div>
+                                <div onclick="creatcardpopup()" id="offre-applied" >
+                                    <div style="margin-left:10p ;">
+                                        <p>Apply</p>
+                                    </div>
+
+                                </div>
+                                <div id="modal-card" style="display: none;">
+                                    <div id="modal-box">
+                                        <span id="modal-close" onclick="creatcardpopup()">x</span>
+                                        <h2 id="modal-header">check what you want to add</h2>
+
+                                        <form id="update-user-form" action="/user/profil/creatCard/" method="POST">
+                                            <input type="hidden" name="id_offre" value="<%= mylist[i][1]._id %>">
+                                            <label for="vertical-list-box">Eucation</label>
+                                            <div id="vertical-list-box">
+                                                <% if (myEducations && myEducations.length> 0) { %>
+                                                    <% for(let i=0; i < myEducations.length; i++) { %>
+                                                        <label>
+                                                            <input type="checkbox" name="selected_items[]"
+                                                                value="<%= myEducations[i]._id %>">
+                                                            <span>
+                                                                <%= myEducations[i].ecole + " - " +
+                                                                    myEducations[i].diplome %>
+                                                            </span>
+                                                        </label>
+                                                        <% } %>
+                                                            <% } else { %>
+                                                                <p style="color:#999; text-align:center;">No items
+                                                                    found.</p>
+                                                                <% } %>
+                                            </div>
+                                            <label for="vertical-list-box">Experience </label>
+                                            <div id="vertical-list-box">
+                                                <% if (myExperiences && myExperiences.length> 0) { %>
+                                                    <% for(let i=0; i < myExperiences.length; i++) { %>
+                                                        <label>
+                                                            <input type="checkbox" name="selected_items[]"
+                                                                value="<%= myExperiences[i]._id %>">
+                                                            <span>
+                                                                <%= myExperiences[i].enterprise + " - " +
+                                                                    myExperiences[i].Poste %>
+                                                            </span>
+                                                        </label>
+                                                        <% } %>
+                                                            <% } else { %>
+                                                                <p style="color:#999; text-align:center;">No items
+                                                                    found.</p>
+                                                                <% } %>
+                                            </div>
+
+                                            <label for="vertical-list-box">Certification</label>
+                                            <div id="vertical-list-box">
+                                                <% if (myCertifications && myCertifications.length> 0) { %>
+                                                    <% for(let i=0; i < myCertifications.length; i++) { %>
+                                                        <label>
+                                                            <input type="checkbox" name="selected_items[]"
+                                                                value="<%= myCertifications[i]._id %>">
+                                                            <span>
+                                                                <%= myCertifications[i].titre + " - " +
+                                                                    myCertifications[i].organisme %>
+                                                            </span>
+                                                        </label>
+                                                        <% } %>
+                                                            <% } else { %>
+                                                                <p style="color:#999; text-align:center;">No items
+                                                                    found.</p>
+                                                                <% } %>
+                                            </div>
+
+                                            <label for="vertical-list-box">Competences</label>
+                                            <div id="grid-list-box">
+                                                <% if (myCapabilities && myCapabilities.length> 0) { %>
+                                                    <% for(let i=0; i < myCapabilities.length; i++) { %>
+                                                        <label>
+                                                            <input type="checkbox" name="selected_items[]"
+                                                                value="<%= myCapabilities[i]._id %>">
+                                                            <span>
+                                                                <%= myCapabilities[i].title %>
+                                                            </span>
+                                                        </label>
+                                                        <% } %>
+                                                            <% } else { %>
+                                                                <p
+                                                                    style="color:#999; text-align:center; grid-column: 1 / -1;">
+                                                                    No items found.</p>
+                                                                <% } %>
+                                            </div>
+
+
+                                            <label for="vertical-list-box">About </label>
+                                            <textarea name="description" id="desc-input"
+                                                placeholder="About the Poste"></textarea>
+
+
+
+
+
+
+                                            <button type="submit" id="modal-submit-btn">Save Changes</button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <% } %>
+                                <% } %>
+                                    <% } else { %>
+                                        <p style="text-align: center; color: var(--gray); margin: 10px;">No jobs or
+                                            posts</p>
+                                        <% } %>
+
+        </div>
+        <div id="Add">
+            <p style="color: var(--light-blue);">Add to your feed</p>
+
+            <% if (suggestions && suggestions.length> 0) { %>
+                <% for(let k=0; k < suggestions.length; k++) { %>
+                    <div id="Add-element">
+                        <img style="margin-left:6px;" src="<%= suggestions[k].profilePic || '/imgs/imgs/image.png' %>"
+                            alt="">
+
+                        <a href="/user/profil/<%= suggestions[k]._id %>"
+                            style="text-decoration: none; color: black; flex: 1;">
+                            <p style="margin-left:6px; cursor: pointer; font-weight: 500;">
+                                <%= suggestions[k].first_name %>
+                                    <%= suggestions[k].last_name %>
+                            </p>
+                            <p style="margin-left:6px; font-size: 13px; color: gray;">
+                                @<%= suggestions[k].user_name %>
+                            </p>
+                        </a>
+                    </div>
+
+                    <% } %>
+                        <% } else { %>
+                            <p style="color: gray; font-size: 13px; padding: 10px;">No suggestions available</p>
+                            <% } %>
+
+        </div>
+
+    </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--scripts -->
+    <script src="/Scripts/script.js"></script>
+    <!--scripts -->
+</body>
+
+</html>

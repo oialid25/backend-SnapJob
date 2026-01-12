@@ -1,0 +1,50 @@
+nav{
+    padding: 15px;
+    position: fixed;
+    left: 0;
+    top: var(--header-height);
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    align-items: center;
+    justify-content: start;
+    height: 100%;
+    background-color: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+    z-index: 100;
+    display: none;
+    opacity: 0.15;
+    
+}
+
+
+nav:hover{
+    opacity: 1;
+}
+nav div{
+    cursor: pointer;
+    margin-top: 14%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+nav img{
+    width: 33px;
+    margin-bottom: 0;
+}
+nav p{
+    color: var(--midle-blue);
+}
+
+
+#hover-zone {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 30px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0);
+    z-index: 1;
+}
