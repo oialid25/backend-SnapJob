@@ -64,8 +64,8 @@
             <div id="profil">
                 <img id="profil-img" src="<%= myrealUser.profilePic || '/imgs/imgs/image.png' %>" alt="">
                 <p>
-                    <%= myrealUser.last_name.charAt(0).toUpperCase() + myUser.last_name.slice(1) %>
-                        <%= myrealUser.first_name.charAt(0).toUpperCase() + myUser.first_name.slice(1) %>
+                    <%= myrealUser.last_name.charAt(0).toUpperCase() + myrealUser.last_name.slice(1) %>
+                        <%= myrealUser.first_name.charAt(0).toUpperCase() + myrealUser.first_name.slice(1) %>
                 </p>
                 <a href="/auth/logout">
                     <img title="logout" style="margin-top: 5px;" id="profil-arrow" src="/imgs/icons/arrow.svg" alt="">
@@ -88,15 +88,19 @@
         </a>
 
         <div id="Applied">
-            <a href="/user/Applied/ <%= myrealUser._id.toString() %>" style="text-decoration: none; display: flex; flex-direction: column; justify-content: center; align-items: center;" >
+            <a href="/user/Applied/<%= myrealUser._id.toString() %>" style="text-decoration: none; display: flex; flex-direction: column; justify-content: center; align-items: center;" >
                 <img class="imgss" src="/imgs/icons/send.png" alt="">
                 <p>Applied</p>
             </a>
             
         </div>
-        <div >
-            <img class="imgss" src="/imgs/icons/user.png" alt="">
-            <p>Profile</p>
+        <div id="Profile">
+            <a style="text-decoration: none; display: flex; flex-direction: column; justify-content: center; align-items: center;"
+                href="/user/profil/">
+                <img class="imgss" src="/imgs/icons/user.png" alt="">
+                <p>Profile</p>
+            </a>
+
         </div>
     </nav>
 

@@ -157,8 +157,39 @@ const getApplied = async (req, res) => {
                 if (reviewedCardIds.includes(cardItem._id.toString())) continue;
 
                 const cardUser = await user.findById(cardItem.userid).select('-password');
+                                const compLinks = await INCLURE_COMP.find({ id_card: cardItem._id });
+                const competencies = [];
+                for (const link of compLinks) {
+                    const comp = await capabilitie.findById(link.Comp_id);
+                    if (comp) { competencies.push(comp) };
+                }
+                const eduLinks = await INCLURE_EDUCATION.find({ id_card: cardItem._id });
+                const educations = [];
+                for (const link of eduLinks) {
+                    const edu = await education.findById(link.Formation_id);
+                    if (edu) { educations.push(edu) };
+                }
+                const certLinks = await INCLURE_CERT.find({ id_card: cardItem._id });
+                const certifications = [];
+                for (const link of certLinks) {
+                    const cert = await certification.findById(link.Cert_id);
+                    if (cert) { certifications.push(cert) };
+                }
+                const expLinks = await INCLURE_EXP.find({ id_card: cardItem._id });
+                const experiences = [];
+                for (const link of expLinks) {
+                    const exp = await experience.findById(link.Exp_id);
+                    if (exp) { experiences.push(exp) };
+                }
                 
-                allCandidates.push({ card: cardItem, user: cardUser }); 
+                allCandidates.push({ 
+                    card: cardItem, 
+                    user: cardUser,
+                    competencies: competencies,
+                    educations: educations,
+                    certifications: certifications,
+                    experiences: experiences
+                }); 
             }
             
             if (allCandidates.length > 0 && candidateIndex < allCandidates.length) {
@@ -240,7 +271,9 @@ const gethomepage = async (req, res) => {
         const posts = await post.find().sort({ createdAt: -1 });
         const offres = await offre.find().sort({ createdAt: -1 });
         const myUser = await user.findById(req.params.id).select('-password');
-        const suggestions = await user.find({}).limit(3);
+        const count = await user.countDocuments();
+        const randomSkip = Math.floor(Math.random() * Math.max(0, count - 3));
+        const suggestions = await user.find().skip(randomSkip).limit(3);
 
         let mylist = [];
         let i = 0;
