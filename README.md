@@ -17,13 +17,13 @@ The platform features a sophisticated **Candidate Review System**, allowing recr
 
 ### 📊 Application Workflow (The "Review" Engine)
 *Recruiters can view applicant cards, review credentials, and make hiring decisions instantly.*
-<img width="100%" alt="Candidate Review System" src="<img width="730" height="874" alt="image" src="https://github.com/user-attachments/assets/7c3fcd5d-0eb6-4256-ba92-480ff49d75ff" />
-" />
+<img width="730" height="874" alt="image" src="https://github.com/user-attachments/assets/7c3fcd5d-0eb6-4256-ba92-480ff49d75ff" />
+
 
 ### 🗂️ Database Architecture (CDM)
 *A normalized relational structure implemented in a NoSQL environment.*
-<img width="100%" alt="Database Architecture" src="<img width="1280" height="876" alt="image" src="https://github.com/user-attachments/assets/d5388062-72f8-40cb-882f-033746f08729" />
-" />
+<img width="1280" height="876" alt="image" src="https://github.com/user-attachments/assets/d5388062-72f8-40cb-882f-033746f08729" />
+
 
 ---
 
